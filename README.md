@@ -34,17 +34,12 @@ Executes an array of actions on the target
 
 ##Subject
 Actions may contain a field 's', indicating the subject of the action. Defaults to NONE. The action will be executed on the subject.
-###ALL
-The action will be executed for every player on all specified destinations.
-###NONE (DEFAULT)
-The action will be executed once for every specified destination. The action execution will specify a *null* uuid value as the receiver.
-###{uuid}
-The action will only execute for the specified *uuid* on the server of the *uuid*.
+- **'ALL'**: Executes for all players on specified destinations *(Useful for broadcasts)*
+- **'NONE' [DEFAULT]**:The action executes once for every specified destination *(Useful for in-world events)*
+- **'{uuid}'**: Only executes for specified player *(Useful for sending a private msg)*
+
 ##Destination
 An action can have a destination parameter, to specify where to schedule the action too
-###*EMPTY*
-When the destionation is left empty, it will be set according to the receiver (ALL/NONE = every server, {uuid} = server of that player)
-###ALL
-This will send the action to every server (of that action type). Don't combine this with a {uuid} receiver (routes a lot of traffic for no reason).
-###{UUID}
-This will send the action only to the server of the specified player.
+- **SUBJECT** [DEFAULT]: Depends on the subject: ALL/NONE: Every server, {uuid}: Server of the uuid player
+- **ALL**: Every server receives the action *(useful for global broadcasts)*
+- **{uuid}**: The action is send to the server of the specified uuid *(useful for broadcasting on 1 server)*
