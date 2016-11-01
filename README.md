@@ -15,18 +15,19 @@ The ActionAPI contains a spigot and bungeecord implementation to fetch and execu
 - "m": The action metadata, different for every action.
 
 ##Bungeecord Actions
-###JOIN:
+###JOIN
 Connects target to specified server
-###CHAT:
+###CHAT
 Sends array of messages to target chat
-###KICK:
+###KICK
 Kicks target from network (disconnect)
-###BATCH: *Executes an array of actions on the target*
+###BATCH
+Executes an array of actions on the target
 
 ##Spigot Actions
-###HUD:
+###HUD
 Adds HUDText to specific target HUD location
-###BATCH:
+###BATCH
 Executes an array of actions on the target
 
 ##Subject
