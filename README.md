@@ -33,11 +33,11 @@ Executes an array of actions on the target
 ##Subject
 Actions may contain a field 's', indicating the subject of the action. Defaults to NONE. The action will be executed on the subject.
 ###ALL
-The action will be executed for every player all specified destinations.
+The action will be executed for every player on all specified destinations.
 ###NONE (DEFAULT)
 The action will be executed once for every specified destination. The action execution will specify a *null* uuid value as the receiver.
 ###{uuid}
-The action will only execute for the specified *uuid*.
+The action will only execute for the specified *uuid* on the server of the *uuid*.
 ##Destination
 An action can have a destination parameter, to specify where to schedule the action too
 ###*EMPTY*
