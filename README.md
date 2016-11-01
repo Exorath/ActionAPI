@@ -23,7 +23,7 @@ Actions may contain a field 's', indicating the subject of the action. Defaults 
 - **'{uuid}'**: Only executes for specified player *(Useful for sending a private msg)*
 
 ##Destination
-An action can have a destination parameter, to specify where to schedule the action too
+Actions may contain the 'd' parameter, to specify the location that the action will be scheduled to.
 - **SUBJECT** [DEFAULT]: Depends on the subject: ALL/NONE: Every server, {uuid}: Server of the uuid player
 - **ALL**: Every server receives the action *(useful for global broadcasts)*
 - **{uuid}**: The action is send to the server of the specified uuid *(useful for broadcasting on 1 server)*
