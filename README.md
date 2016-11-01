@@ -1,6 +1,8 @@
 # ActionAPI
 The ActionAPI contains a spigot and bungeecord implementation to fetch and execute Actions from the ActionAPIService.
 
+ActionAPI messages will be consumed up to one time by every destination. When an action is posted, it is registered to all appropriate destinations This means when the destination is specific to the player, it first fetches the server of the player, and publishes the action to that server. So if the player leaves before that servers polls it's messages, he will not receive the message.
+
 ##Action format
 ```json
 {  "s":"ffcc67a2-b114-4825-beea-63c4bdee2b21",
