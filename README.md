@@ -7,16 +7,16 @@ ActionAPI messages will be consumed up to one time by every destination. When an
 
 ##Action format
 ```json
-{  "s":"ffcc67a2-b114-4825-beea-63c4bdee2b21",
-   "a":"CHAT",
-   "m":{  
+{  "subject":"ffcc67a2-b114-4825-beea-63c4bdee2b21",
+   "action":"CHAT",
+   "meta":{  
       "lines":["Line one", "Line two"]
    }
 }
 ```
-- "s": The subject (optional, defaults to NONE), usually the player.
-- "d": The destination (optional, defaults according to the subject), indicates what servers this message should schedule too.
-- "m": The action metadata, different for every action.
+- "subject": The subject (optional, defaults to NONE), usually the player.
+- "action": The destination (optional, defaults according to the subject), indicates what servers this message should schedule too.
+- "meta": The action metadata, different for every action.
 
 ##Subject
 Actions may contain a field 's', indicating the subject of the action. Defaults to NONE. The action will be executed on the subject.
