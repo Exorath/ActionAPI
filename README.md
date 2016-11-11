@@ -1,5 +1,6 @@
 # ActionAPI
 The ActionAPI contains a spigot and bungeecord implementation to fetch and execute Actions from the ActionAPIService.
+Redis is used for pubsub for now.
 
 Services can send json formatted actions to the ActionAPIService, in the expectation that these actions will be executed on the appropriate bungee/spigot servers.
 
