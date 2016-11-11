@@ -22,13 +22,13 @@ ActionAPI messages will be consumed up to one time by every destination. When an
 Actions may contain a field 's', indicating the subject of the action. Defaults to NONE. The action will be executed on the subject.
 - **'ALL'**: Executes for all players on specified destinations *(Useful for broadcasts)*
 - **'NONE' [DEFAULT]**:The action executes once for every specified destination *(Useful for in-world events)*
-- **'{uuid}'**: Only executes for specified player *(Useful for sending a private msg)*
+- **'{uuid}(,{uuid2},...)'**: Only executes for specified player *(Useful for sending a private msg)*. Optionally send to multiple uuids
 
 ##Destination
 Actions may contain the 'd' parameter, to specify the location that the action will be scheduled to.
 - **SUBJECT** [DEFAULT]: Depends on the subject: ALL/NONE: Every server, {uuid}: Server of the uuid player
 - **ALL**: Every server receives the action *(useful for global broadcasts)*
-- **{uuid}**: The action is send to the server of the specified uuid *(useful for broadcasting on 1 server)*
+- **{uuid}(,{uuid2},...)**: The action is send to the server of the specified uuid *(useful for broadcasting on 1 server)*. Optionally send to multiple uuids
 
 ##Bungeecord Actions
 ###JOIN
