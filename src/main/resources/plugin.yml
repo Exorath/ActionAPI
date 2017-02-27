@@ -1,0 +1,5 @@
+name: ActionAPI
+main: com.exorath.plugin.actionapi.spigot.Spigot
+version: 0.0.1
+author: Toon Sevrin
+depend: [ExoBase]
