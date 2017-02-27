@@ -1,0 +1,15 @@
+language: java
+jdk:
+- oraclejdk8
+script: mvn clean package
+addons:
+  artifacts: true
+deploy:
+  provider: releases
+  api_key:
+    secure: V2O+QnyAOVHP5VoTusjSfDla8eGibkwMAC/7QTJqhVkQKmIx4RMxvlGO7D6KUoZswDhskwyy6K3nXABWMwY2VxviZU6qE7bQMnr/rBenQ3u0oTqTdy8thQ0d08NCIB6Re9Rf4OobNErRgysRnMONOB9YJwg69J7Oxm5D9sbUu3bdc0K70P+Y8yeL06+8kV7s3b/qiXpm/fueh8n9As3aysRxeO/6l2MRsxCK9OC/eOM7Z6/X+ib38Sn1psNoxJg6qLxAyA0KQQHs2AqWU2mcje93mvw1OBtMP2pTaQU+dMOZxfhLe/HzYemy2X5WAEG+cTOLVLXV/V8uQq2Hy5929HHDbGw0Win13ASNCukcc21FnIGnEqf3jJH8ooHi96sAORCtbI0eBqOMpqA4NoRxkkWgguVN/7nXb0ZVmVBC3iMGDZClIx8Lsu4dI55pElz3UShEBexuNEM7h7bHknQEawABdt9UPxilJATz12NWs1Mbx26CTnI6HsTZkL8dgH7poOGwMx7n0tJP45sWHfHr7jZJg0zb8/1KvCQJZ6tgPTuv7OkE+Bsol3fVvhL+LtWKYsJ1d3TadfDVVpqIfbl+n6QzN4g2Xny9g+Su3wWocZ6Swt7VQWcev8nAGxKaAgrunZK2u+urEHaklADg5Q+mCpRkdohlc2/Z1xPgXM2i24E=
+    file: target/*.jar
+  skip_cleanup: true
+  file_glob: true
+  on:
+    repo: Exorath/ActionAPI
