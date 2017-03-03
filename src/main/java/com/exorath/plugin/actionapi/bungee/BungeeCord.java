@@ -18,12 +18,13 @@ package com.exorath.plugin.actionapi.bungee;
 
 import com.exorath.plugin.actionapi.Bootstrap;
 import com.exorath.plugin.bcbase.BCBaseAPI;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.event.PlayerDisconnectEvent;
+import net.md_5.bungee.api.event.PostLoginEvent;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
-import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import net.md_5.bungee.event.EventHandler;
+
 
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  * BungeeCord bootstrapper
  * Created by toonsev on 2/26/2017.
  */
-public class BungeeCord extends Plugin implements Listener{
+public class BungeeCord extends Plugin implements Listener {
     private Bootstrap bootstrap;
 
     @Override
@@ -41,18 +42,18 @@ public class BungeeCord extends Plugin implements Listener{
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
-        String[] players = Bukkit.getOnlinePlayers().stream().map(p -> p.getUniqueId().toString())
-                .collect(Collectors.toList()).toArray(new String[Bukkit.getOnlinePlayers().size()]);
+    public void onJoin(PostLoginEvent event){
+        String[] players = ProxyServer.getInstance().getPlayers().stream().map(p -> p.getUniqueId().toString())
+                .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
         bootstrap.statusUpdate(players);
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event){
-        String[] players = Bukkit.getOnlinePlayers().stream()
+    public void onQuit(PlayerDisconnectEvent event){
+        String[] players = ProxyServer.getInstance().getPlayers().stream()
                 .map(p -> p.getUniqueId().toString())
                 .filter(id -> !id.equals(event.getPlayer().getUniqueId()))
-                .collect(Collectors.toList()).toArray(new String[Bukkit.getOnlinePlayers().size()]);
+                .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
         bootstrap.statusUpdate(players);
     }
 }
