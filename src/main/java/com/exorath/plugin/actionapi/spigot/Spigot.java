@@ -37,6 +37,9 @@ public class Spigot extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         bootstrap = new Bootstrap(ExoBaseAPI.getInstance().getServerId(), true);
+        String[] players = Bukkit.getOnlinePlayers().stream().map(p -> p.getUniqueId().toString())
+                .collect(Collectors.toList()).toArray(new String[Bukkit.getOnlinePlayers().size()]);
+        bootstrap.statusUpdate(players);
         Bukkit.getPluginManager().registerEvents(this, this);
     }
 
