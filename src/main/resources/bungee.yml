@@ -2,4 +2,4 @@ name: ActionAPI
 main: com.exorath.plugin.actionapi.bungee.BungeeCord
 version: 0.0.1
 author: Toon Sevrin
-depend: [BCBase]
+depends: [BCBase]
