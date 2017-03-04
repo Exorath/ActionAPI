@@ -31,7 +31,7 @@ public class ActionManager {
     }
 
     void onAction(Action action){
-        if(actionHandlersByType.containsKey(action.getType()))
-            actionHandlersByType.get(action.getType()).onAction(action);
+        if(actionHandlersByType.containsKey(action.getAction()))
+            actionHandlersByType.get(action.getAction()).onAction(action);
     }
 }
