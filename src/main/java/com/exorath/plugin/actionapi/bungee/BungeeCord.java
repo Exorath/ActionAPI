@@ -18,14 +18,17 @@ package com.exorath.plugin.actionapi.bungee;
 
 import com.exorath.plugin.actionapi.Bootstrap;
 import com.exorath.plugin.bcbase.BCBaseAPI;
+import io.reactivex.schedulers.Schedulers;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import org.bukkit.Bukkit;
 
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -39,9 +42,12 @@ public class BungeeCord extends Plugin implements Listener {
     public void onEnable() {
         String serverId = BCBaseAPI.getInstance().getServerId();
         bootstrap = new Bootstrap(serverId, false);
-        String[] players = ProxyServer.getInstance().getPlayers().stream().map(p -> p.getUniqueId().toString())
-                .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
-        bootstrap.statusUpdate(players);
+        //we have to initially register this server, this does not work immediately for some reason.
+        ProxyServer.getInstance().getScheduler().schedule(this, () -> {
+            String[] players = ProxyServer.getInstance().getPlayers().stream().map(p -> p.getUniqueId().toString())
+                    .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
+            bootstrap.statusUpdate(players);
+        }, 3, 20, TimeUnit.SECONDS);
     }
 
     @EventHandler

@@ -18,6 +18,7 @@ package com.exorath.plugin.actionapi.spigot;
 
 import com.exorath.plugin.actionapi.Bootstrap;
 import com.exorath.plugin.base.ExoBaseAPI;
+import net.md_5.bungee.api.ProxyServer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**'
@@ -37,10 +39,13 @@ public class Spigot extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         bootstrap = new Bootstrap(ExoBaseAPI.getInstance().getServerId(), true);
-        String[] players = Bukkit.getOnlinePlayers().stream().map(p -> p.getUniqueId().toString())
-                .collect(Collectors.toList()).toArray(new String[Bukkit.getOnlinePlayers().size()]);
-        bootstrap.statusUpdate(players);
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            String[] players = ProxyServer.getInstance().getPlayers().stream().map(p -> p.getUniqueId().toString())
+                    .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
+            bootstrap.statusUpdate(players);
+        }, 3 * 20, 20* 20);
     }
 
     @EventHandler
