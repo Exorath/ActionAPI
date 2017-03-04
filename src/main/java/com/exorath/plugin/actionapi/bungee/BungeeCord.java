@@ -39,6 +39,9 @@ public class BungeeCord extends Plugin implements Listener {
     public void onEnable() {
         String serverId = BCBaseAPI.getInstance().getServerId();
         bootstrap = new Bootstrap(serverId, false);
+        String[] players = ProxyServer.getInstance().getPlayers().stream().map(p -> p.getUniqueId().toString())
+                .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
+        bootstrap.statusUpdate(players);
     }
 
     @EventHandler
