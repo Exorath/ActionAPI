@@ -30,7 +30,7 @@ public class Main {
         System.out.println("sending update");
         bootstrap.getActionManager().registerHandler(new ActionHandler() {
             @Override
-            public String getType() {
+            public String getAction() {
                 return "JOIN";
             }
 
