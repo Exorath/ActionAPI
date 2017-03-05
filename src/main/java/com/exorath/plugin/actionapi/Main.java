@@ -22,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * This is for local testing (Though we should of course unit test everything...)
  * Created by toonsev on 3/4/2017.
  */
 public class Main {

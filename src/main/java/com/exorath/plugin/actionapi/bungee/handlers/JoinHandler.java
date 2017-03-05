@@ -31,7 +31,7 @@ import java.util.UUID;
 /**
  * Created by toonsev on 2/27/2017.
  */
-public class JoinHandler implements ActionHandler{
+public class JoinHandler implements ActionHandler {
     @Override
     public String getAction() {
         return "JOIN";
@@ -40,40 +40,48 @@ public class JoinHandler implements ActionHandler{
     @Override
     public void onAction(Action action) {
         try {
-            final String address = action.getMeta().get("address").getAsString();
-            if (address == null) {
+            if (!action.getMeta().has("address")) {
                 System.out.println("Received a JOIN action without an address");
                 return;
             }
-            if(action.getSubject() == null || action.getSubject() == "" || action.getSubject() == "NONE"){
+            final String address = action.getMeta().get("address").getAsString();
+            if (action.getSubject() == null || action.getSubject() == "" || action.getSubject() == "NONE") {
                 System.out.println("JOIN action subject cannot be none. Ignoring action.");
                 return;
             }
             String name = "unknown";
-            if(action.getMeta().has("gameId"))
+            if (action.getMeta().has("gameId"))
                 name = action.getMeta().get("gameId").getAsString();
 
-            if(action.getSubject() == "ALL"){
+            if (action.getSubject() == "ALL") {
                 connectPlayers(address, name, ProxyServer.getInstance().getPlayers());
-            }else{//Case subject=uuid1,uuid2,..
+            } else {//Case subject=uuid1,uuid2,..
                 Set<ProxiedPlayer> proxiedPlayers = new HashSet<>();
-                for (String s : action.getSubject().split(","))
-                    proxiedPlayers.add(ProxyServer.getInstance().getPlayer(UUID.fromString(s)));
+                for (String s : action.getSubject().split(",")) {
+                    try {
+                        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(UUID.fromString(s));
+                        if (player != null)
+                            proxiedPlayers.add(player);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 connectPlayers(address, name, proxiedPlayers);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("An error parsing the JOIN metadata");
             e.printStackTrace();
         }
     }
 
-    private void connectPlayers(String address, String gameName, Collection<ProxiedPlayer> players){
+    private void connectPlayers(String address, String gameName, Collection<ProxiedPlayer> players) {
         String ip = address.split(":")[0];
         int port = Integer.valueOf(address.split(":")[1]);
-        for(ProxiedPlayer player : players){
+        for (ProxiedPlayer player : players) {
             Schedulers.io().scheduleDirect(() -> {
-                player.connect(ProxyServer.getInstance()
-                        .constructServerInfo(gameName, new InetSocketAddress(ip, port), "MOTD...", true));
+                if (player.isConnected())
+                    player.connect(ProxyServer.getInstance()
+                            .constructServerInfo(gameName, new InetSocketAddress(ip, port), "MOTD...", true));
             });
         }
     }
