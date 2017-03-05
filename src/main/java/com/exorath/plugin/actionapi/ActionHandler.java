@@ -26,7 +26,7 @@ public interface ActionHandler {
      * Returns the action type this handler handles
      * @return
      */
-    String getType();
+    String getAction();
 
 
     /**

@@ -17,6 +17,7 @@
 package com.exorath.plugin.actionapi.bungee;
 
 import com.exorath.plugin.actionapi.Bootstrap;
+import com.exorath.plugin.actionapi.bungee.handlers.JoinHandler;
 import com.exorath.plugin.bcbase.BCBaseAPI;
 import io.reactivex.schedulers.Schedulers;
 import net.md_5.bungee.api.ProxyServer;
@@ -48,6 +49,9 @@ public class BungeeCord extends Plugin implements Listener {
                     .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
             bootstrap.statusUpdate(players);
         }, 3, 20, TimeUnit.SECONDS);
+
+
+        bootstrap.getActionManager().registerHandler(new JoinHandler());
     }
 
     @EventHandler

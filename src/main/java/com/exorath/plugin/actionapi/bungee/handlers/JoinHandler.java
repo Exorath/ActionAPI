@@ -33,7 +33,7 @@ import java.util.UUID;
  */
 public class JoinHandler implements ActionHandler{
     @Override
-    public String getType() {
+    public String getAction() {
         return "JOIN";
     }
 

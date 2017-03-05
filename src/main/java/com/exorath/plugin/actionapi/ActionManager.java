@@ -24,14 +24,14 @@ import java.util.HashMap;
  * Created by toonsev on 2/27/2017.
  */
 public class ActionManager {
-    private HashMap<String, ActionHandler> actionHandlersByType = new HashMap<>();
+    private HashMap<String, ActionHandler> actionHandlersByAction = new HashMap<>();
 
     public void registerHandler(ActionHandler actionHandler) {
-        actionHandlersByType.put(actionHandler.getType(), actionHandler);
+        actionHandlersByAction.put(actionHandler.getAction(), actionHandler);
     }
 
     void onAction(Action action){
-        if(actionHandlersByType.containsKey(action.getAction()))
-            actionHandlersByType.get(action.getAction()).onAction(action);
+        if(actionHandlersByAction.containsKey(action.getAction()))
+            actionHandlersByAction.get(action.getAction()).onAction(action);
     }
 }
