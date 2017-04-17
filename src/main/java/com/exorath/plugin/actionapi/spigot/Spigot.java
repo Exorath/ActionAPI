@@ -20,12 +20,17 @@ import com.exorath.plugin.actionapi.Bootstrap;
 import com.exorath.plugin.base.ExoBaseAPI;
 import net.md_5.bungee.api.ProxyServer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**'
@@ -61,5 +66,19 @@ public class Spigot extends JavaPlugin implements Listener {
                 .filter(id -> !id.equals(event.getPlayer().getUniqueId()))
                 .collect(Collectors.toList()).toArray(new String[Bukkit.getOnlinePlayers().size()]);
         bootstrap.statusUpdate(players);
+    }
+
+    public static Collection<Player> loadPlayers(String subject){
+        Set<Player> proxiedPlayers = new HashSet<>();
+        for (String s : subject.split(",")) {
+            try {
+                Player player = Bukkit.getPlayer(UUID.fromString(s));
+                if (player != null)
+                    proxiedPlayers.add(player);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return proxiedPlayers;
     }
 }

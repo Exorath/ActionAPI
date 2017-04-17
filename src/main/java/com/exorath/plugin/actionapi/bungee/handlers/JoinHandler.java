@@ -17,6 +17,7 @@
 package com.exorath.plugin.actionapi.bungee.handlers;
 
 import com.exorath.plugin.actionapi.ActionHandler;
+import com.exorath.plugin.actionapi.bungee.BungeeCord;
 import com.exorath.service.actionapi.res.Action;
 import io.reactivex.schedulers.Schedulers;
 import net.md_5.bungee.api.ProxyServer;
@@ -56,16 +57,7 @@ public class JoinHandler implements ActionHandler {
             if (action.getSubject() == "ALL") {
                 connectPlayers(address, name, ProxyServer.getInstance().getPlayers());
             } else {//Case subject=uuid1,uuid2,..
-                Set<ProxiedPlayer> proxiedPlayers = new HashSet<>();
-                for (String s : action.getSubject().split(",")) {
-                    try {
-                        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(UUID.fromString(s));
-                        if (player != null)
-                            proxiedPlayers.add(player);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+                Collection<ProxiedPlayer> proxiedPlayers = BungeeCord.loadProxiedPlayers(action.getSubject());
                 connectPlayers(address, name, proxiedPlayers);
             }
         } catch (Exception e) {

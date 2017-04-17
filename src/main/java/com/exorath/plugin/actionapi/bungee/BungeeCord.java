@@ -21,6 +21,7 @@ import com.exorath.plugin.actionapi.bungee.handlers.JoinHandler;
 import com.exorath.plugin.bcbase.BCBaseAPI;
 import io.reactivex.schedulers.Schedulers;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -29,6 +30,10 @@ import net.md_5.bungee.event.EventHandler;
 import org.bukkit.Bukkit;
 
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -68,5 +73,19 @@ public class BungeeCord extends Plugin implements Listener {
                 .filter(id -> !id.equals(event.getPlayer().getUniqueId()))
                 .collect(Collectors.toList()).toArray(new String[ProxyServer.getInstance().getPlayers().size()]);
         bootstrap.statusUpdate(players);
+    }
+
+    public static Collection<ProxiedPlayer> loadProxiedPlayers(String subject){
+        Set<ProxiedPlayer> proxiedPlayers = new HashSet<>();
+        for (String s : subject.split(",")) {
+            try {
+                ProxiedPlayer player = ProxyServer.getInstance().getPlayer(UUID.fromString(s));
+                if (player != null)
+                    proxiedPlayers.add(player);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return proxiedPlayers;
     }
 }

@@ -17,6 +17,7 @@
 package com.exorath.plugin.actionapi;
 
 import com.exorath.service.actionapi.res.Action;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
  * Created by toonsev on 2/27/2017.
@@ -34,4 +35,5 @@ public interface ActionHandler {
      * @param action received action
      */
     void onAction(Action action);
+
 }
